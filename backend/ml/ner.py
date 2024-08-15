@@ -8,7 +8,7 @@ With a population of around 120,000, Bergamo is the fourth-largest city in Lomba
 
 
 def retrieve_named_entites(text: str) -> list[dict[str, str]]:
-    if len(text) <= 2 and len(text.split()) == 1:
+    if len(text) < 2:
         raise Exception("Invalid text") 
     res:list = []
     doc = nlp(text)
