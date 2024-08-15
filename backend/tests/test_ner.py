@@ -9,3 +9,7 @@ class TestClass:
     def test_ner_whenTextIsOneWord_thenReturnListOfCorrectObjects(self):
         res = retrieve_named_entites("Paris")
         assert res == [{ "entity": "Paris",  "label": "GPE" }]
+    
+    def test_ner_whenTextIsEmptyString_thenRaiseException(self):
+        with pytest.raises(Exception):
+            retrieve_named_entites("")
