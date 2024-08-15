@@ -28,6 +28,10 @@ export default function NerComponent() {
       
         <div>
             <h1>Ner Component</h1>
+            <form>
+                <input type="text" />
+                <input type="submit" />
+            </form>
             {data.length}
             <p>dadsa</p>
             { 
