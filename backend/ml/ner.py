@@ -6,7 +6,12 @@ content = """Bergamo is a city in the alpine Lombardy region of Northern Italy, 
 With a population of around 120,000, Bergamo is the fourth-largest city in Lombardy. Bergamo is the seat of the Province of Bergamo, which counts over 1,103,000 residents (2020). The metropolitan area of Bergamo extends beyond the administrative city limits, spanning over a densely urbanized area with slightly less than 500,000 inhabitants.
 [3] The Bergamo metropolitan area is itself part of the broader Milan metropolitan area, home to over 8 million people"""
 
-doc = nlp(content)
 
-for ent in doc.ents:
-    print(f"{ent.text} {ent.label_}")
+def retrieve_named_entites(text):
+    res = {}
+    doc = nlp(text)
+
+    for ent in doc.ents:
+        res[ent.text] = ent.label_
+        print(f"{ent.text} {ent.label_}")
+    return res
