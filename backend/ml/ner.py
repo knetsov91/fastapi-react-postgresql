@@ -7,11 +7,17 @@ With a population of around 120,000, Bergamo is the fourth-largest city in Lomba
 [3] The Bergamo metropolitan area is itself part of the broader Milan metropolitan area, home to over 8 million people"""
 
 
-def retrieve_named_entites(text):
-    res = {}
+def retrieve_named_entites(text: str) -> list[dict[str, str]]:
+    if len(text) <= 2 and len(text.split()) == 1:
+        raise Exception("Invalid text") 
+    res:list = []
     doc = nlp(text)
 
     for ent in doc.ents:
-        res[ent.text] = ent.label_
+       
+
+        res.append({"entity": ent.text, "label": ent.label_ })
         print(f"{ent.text} {ent.label_}")
+
     return res
+
