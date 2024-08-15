@@ -1,2 +1,10 @@
 env
 __pycache__
+.env
+frontend/node_modules
+frontend/.gitignore
+frontend/coverage
+frontend/build
+frontend/package-lock.json
+.pytest_cache
+.vscode
