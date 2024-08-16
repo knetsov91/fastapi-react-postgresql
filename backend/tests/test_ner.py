@@ -12,4 +12,4 @@ class TestClass:
     
     def test_ner_whenTextIsEmptyString_thenRaiseException(self):
         with pytest.raises(Exception):
-            retrieve_named_entites("aaa")
+            retrieve_named_entites("")
