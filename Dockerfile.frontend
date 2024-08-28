@@ -5,7 +5,13 @@ COPY frontend/src ./src
 COPY frontend/package*.json ./
 RUN npm install
 COPY . .
+ARG BACKEND_PORT
+ARG BACKEND_URL
+ENV REACT_APP_BACKENDAPI_PORT $BACKEND_PORT
+ENV REACT_APP_BACKENDAPI_URL $BACKEND_URL
 
+RUN echo $REACT_APP_BACKENDAPI_PORT
+RUN echo $REACT_APP_BACKENDAPI_URL
 # Build stage: Use the development stage as a base, run npm build to generate production-ready assets
 FROM develop-stage AS build-stage
 RUN npm run build
