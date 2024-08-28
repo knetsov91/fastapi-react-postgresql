@@ -9,4 +9,18 @@ services:
      - "${BACKEND_PORT}:8080"
     depends_on:
       - db
+  frontend:
+    container_name: frontend
+    env_file: "./frontend/dev.env"
+    build:
+      context: "."
+      dockerfile: ./Dockerfile.frontend
+      args: 
+        - BACKEND_URL=$REACT_APP_BACKENDAPI_URL
+        - BACKEND_PORT=$REACT_APP_BACKENDAPI_PORT
+    
+    ports:
+      - "${FRONTEND_PORT}:80"
+    
   
+ 
