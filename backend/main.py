@@ -42,4 +42,7 @@ def login(user: UserLogin , db: Session= Depends(get_db)):
     user_login = auth_repository.register(db,user )
     return user_login
 
+@app.post("/ner")
+async def get_entities(text: Annotated[str,  Body(embed=True)]):
 
+    return retrieve_named_entites(text)  
