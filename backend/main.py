@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Body
+from fastapi import FastAPI, Body, Path, HTTPException
 from typing import Annotated
 from starlette.middleware.cors import CORSMiddleware
 from ml.ner import retrieve_named_entites
@@ -6,13 +6,15 @@ import os
 from utils.database.database import SessionLocal, engine, Base
 from dotenv import load_dotenv
 from sqlalchemy.orm import Session
-from repositories import user_repository, auth_repository
+from repositories import user_repository, auth_repository, sales_items_repository
 from utils.database.database import SessionLocal, engine
 from data.schemas.User import UserLogin,User
-from  data.schemas.User import User as UserSchema  
+from  data.schemas.User import User as UserSchema 
+from data.schemas.SalesItem import SalesItemBase, SalesItemCreate
 from  data.models import UserModel
 from fastapi import Depends
-
+from services.sales_items_service import create_salse_item
+from services import auth_service  
 load_dotenv()
 app = FastAPI()
 
@@ -34,14 +36,14 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-@app.post("/login", response_model=UserSchema )
+@app.post("/register", response_model=UserSchema )
 def login(user: UserLogin , db: Session= Depends(get_db)):
-    print(user)
-    user_login = auth_repository.register(db,user )
-    return user_login
-
+    try:
+        return auth_service.register(db, user)
+    except:
+        raise HTTPException(status_code=400, detail="Something went wrong")
 @app.post("/ner")
-async def get_entities(text: Annotated[str,  Body(embed=True)] ):
+async def get_entities(text: Annotated[str, Body(embed=True)] ):
 
     return retrieve_named_entites(text)  
 
