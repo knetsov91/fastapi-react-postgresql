@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+from data.schemas.SalesItem import SalesItem
 
 class UserBase(BaseModel):
     email: str
@@ -9,7 +9,7 @@ class UserLogin(UserBase):
 
 class User(UserBase):
     id: int
-    searches: list = []
+    items: list[SalesItem] = []
 
     class Config:
         from_attributes = True
