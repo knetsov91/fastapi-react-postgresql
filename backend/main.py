@@ -42,6 +42,7 @@ def login(user: UserLogin , db: Session= Depends(get_db)):
         return auth_service.register(db, user)
     except:
         raise HTTPException(status_code=400, detail="Something went wrong")
+    
 @app.post("/ner")
 async def get_entities(text: Annotated[str, Body(embed=True)] ):
 
