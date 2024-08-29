@@ -1,4 +1,4 @@
-from ..ml.ner import retrieve_named_entites
+from backend.ml.ner import retrieve_named_entites
 import pytest
 
 class TestClass:
