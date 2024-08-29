@@ -1,16 +1,10 @@
 from sqlalchemy.orm import Session
-from data.dtos.UserDTO import UserCreate, UserDto
-from data.models.User import User
+from data.schemas.User import UserLogin
+from data.models.UserModel import User
 
-# def __init__(db: Session):
-#     db = Session()
-
-def create_user( db: Session, user: UserCreate):
+def get_user_by_email( db: Session, email:str):
    
-    db_user = User(email = user.email, hashed_password = user.password)
+   return db.query(User).filter(User.email == email).first()
 
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-    
-    return db_user
+def get_users(db: Session ):
+    return db.query(User).all()
