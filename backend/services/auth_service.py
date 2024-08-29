@@ -9,4 +9,6 @@ def register(db: Session, user: UserLogin):
     if user_found:
         raise ValueError("Try again")
     
+    salt = bcrypt.gensalt()
+    user.password = bcrypt.hashpw(user.password.encode('utf-8'), salt)
     return auth_repository.register(db, user)
