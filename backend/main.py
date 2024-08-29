@@ -51,3 +51,12 @@ async def get_entities(text: Annotated[str, Body(embed=True)] ):
 @app.get("/users")
 def get_users(db: Session = Depends(get_db)):
     return user_repository.get_users(db) 
+
+@app.post('/items/{owner_id}', response_model=SalesItemCreate)
+def f(salesItem: SalesItemBase,
+      owner_id: Annotated[int, Path()],
+      db: Session = Depends(get_db)
+    ):
+
+    sales_item = create_salse_item(db, owner_id, salesItem=salesItem)
+    return sales_item
