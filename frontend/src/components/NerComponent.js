@@ -2,7 +2,7 @@ import axios from 'axios';
 import {useState, useEffect} from 'react';
 
 export default function NerComponent() {
-    const URL = "http://localhost:8000/ner"
+    const URL = `http://${process.env.REACT_APP_BACKENDAPI_URL}:${process.env.REACT_APP_BACKENDAPI_PORT}/ner`
     const [data, setData] = useState([])
 
     useEffect(() => {
