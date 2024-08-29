@@ -34,8 +34,6 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-
-
 @app.post("/login", response_model=UserSchema )
 def login(user: UserLogin , db: Session= Depends(get_db)):
     print(user)
@@ -43,6 +41,10 @@ def login(user: UserLogin , db: Session= Depends(get_db)):
     return user_login
 
 @app.post("/ner")
-async def get_entities(text: Annotated[str,  Body(embed=True)]):
+async def get_entities(text: Annotated[str,  Body(embed=True)] ):
 
     return retrieve_named_entites(text)  
+
+@app.get("/users")
+def get_users(db: Session = Depends(get_db)):
+    return user_repository.get_users(db) 
