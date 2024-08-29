@@ -7,6 +7,9 @@ class UserBase(BaseModel):
 class UserLogin(UserBase):
     password: str
 
+class UserAuthenticated(UserBase):
+    id: int
+
 class User(UserBase):
     id: int
     items: list[SalesItem] = []
