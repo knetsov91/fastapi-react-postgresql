@@ -11,7 +11,7 @@ dotenv.load_dotenv("dev.env")
 def register(db: Session, user: UserLogin):
     user_found = user_repository.get_user_by_email(db, email=user.email)
     if user_found:
-        raise ValueError("Email")
+        raise ValueError("Regsiter error")
     
     salt = bcrypt.gensalt()
     user.password = bcrypt.hashpw(user.password.encode('utf-8'), salt).decode('utf-8')
