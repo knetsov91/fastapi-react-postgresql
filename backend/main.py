@@ -1,8 +1,8 @@
 from fastapi import FastAPI, Body, Path, HTTPException
 from typing import Annotated
 from starlette.middleware.cors import CORSMiddleware
-from ml.ner import retrieve_named_entites
 import os
+from os.path import join, dirname
 from utils.database.database import SessionLocal, engine, Base
 from dotenv import load_dotenv
 from sqlalchemy.orm import Session
@@ -15,12 +15,12 @@ from  data.models import UserModel
 from fastapi import Depends
 from services.sales_items_service import create_salse_item
 from services import auth_service  
-load_dotenv()
+load_dotenv(dotenv_path=join(dirname(__file__),"dev.env"))
 app = FastAPI()
 
-origins = [f"localhost:{os.getenv('FRONTEND_PORT')}",
-           f"http://localhost:{os.getenv('FRONTEND_PORT')}"]
-
+origins = [f"localhost:{os.environ.get('FRONTEND_PORT')}",
+           f"http://localhost:{os.environ.get('FRONTEND_PORT')}"]
+print(origins)
 def get_db():
     db = SessionLocal()
     try:
@@ -43,10 +43,6 @@ def login(user: UserLogin , db: Session= Depends(get_db)):
     except:
         raise HTTPException(status_code=400, detail="Something went wrong")
     
-@app.post("/ner")
-async def get_entities(text: Annotated[str, Body(embed=True)] ):
-
-    return retrieve_named_entites(text)  
 
 @app.get("/users")
 def get_users(db: Session = Depends(get_db)):
