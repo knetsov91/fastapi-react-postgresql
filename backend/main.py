@@ -15,7 +15,7 @@ from  data.models import UserModel
 from fastapi import Depends
 from services.sales_items_service import create_salse_item
 from services import auth_service  
-load_dotenv(dotenv_path=join(dirname(__file__),"dev.env"))
+# load_dotenv(dotenv_path=join(dirname(__file__),"dev.env"))
 app = FastAPI()
 
 origins = [f"localhost:{os.environ.get('FRONTEND_PORT')}",
@@ -28,7 +28,7 @@ def get_db():
     finally:
         db.close()
 
-Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine, checkfirst=True)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -40,7 +40,7 @@ app.add_middleware(
 def login(user: UserLogin , db: Session= Depends(get_db)):
     try:
         return auth_service.register(db, user)
-    except:
+    except Exception as e:
         raise HTTPException(status_code=400, detail="Something went wrong")
     
 
