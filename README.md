@@ -9,8 +9,14 @@ Python and PostgreSQL are used for the backend. Javascript React libray is used 
 
 <h2>Tech stack:</h2>
 <ul>
-  <li>Python - FastAPI</li>
-  <li>Javascript -React</li>
+  <li>Python - FastAPI for REST API, SQLAlchemy as ORM.</li>
+  <li>Javascript -React.</li>
   <li>Database - PostgreSQL</li>
   <li>Docker</li>
+  <li>JWT for </li>
+</ul>
+
+<h2>Features:</h2>
+<ul>
+  <li>Authentication and Authorization using JWT</li>
 </ul>
