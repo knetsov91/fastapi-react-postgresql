@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { login } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/authContext";
 
 const Login = (props) => {
 
@@ -8,13 +9,18 @@ const Login = (props) => {
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
     const navigate = useNavigate()
+    const {setToken} = useAuth()
+    
     const submit = (e) => {
         e.preventDefault();
 
         login(email, password)
         .then(data => {
             console.log(data);
-            navigate("/home")
+            const {token} = data.data;
+            setToken(token)
+            localStorage.setItem("authToken", token)
+            navigate("/home", {replace: true})
         })
         .catch(err => {
             console.log(err);
