@@ -7,12 +7,8 @@ COPY backend backend
 COPY backend/requirements.txt /app/backend/requirements.txt 
 RUN python -m pip install --upgrade pip
 RUN apt update \
-    && apt install -y \
-    gcc musl-dev python3-dev \
-    && pip install --upgrade pip setuptools wheel \
     && pip install -r /app/backend/requirements.txt \
     && rm -rf /root/.cache/pip
 
-RUN python -m spacy download en_core_web_sm
 WORKDIR /app/backend
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
