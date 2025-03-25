@@ -1,11 +1,14 @@
-import jwt
+import jwt 
+from jwt import JWT, supported_key_types
 
 def generate_jwt(payload, secret,alg= "HS256"):
-    return jwt.encode(payload=payload, key=secret, algorithm= alg)
+    secret_ = supported_key_types()['oct'](str.encode(secret))
+    return JWT().encode(payload=payload, key=secret_, alg=alg)
 
 def validate_jwt_token(jwt_token, secret, alg="HS256"):
+    secret_ = supported_key_types()['oct'](str.encode(secret))
     try:
-        return jwt.decode(jwt_token, key=secret,algorithms=alg)
+        return JWT().decode(jwt_token, key=secret_,alg=alg)
     except jwt.ExpiredSignatureError:
         print("Expired token")
         raise jwt.ExpiredSignatureError

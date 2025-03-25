@@ -3,18 +3,18 @@ from typing import Annotated
 from starlette.middleware.cors import CORSMiddleware
 import os
 from os.path import join, dirname
-from utils.database.database import SessionLocal, engine, Base
+from .utils.database.database import SessionLocal, engine, Base
 from dotenv import load_dotenv
 from sqlalchemy.orm import Session
-from repositories import user_repository, auth_repository, sales_items_repository
-from utils.database.database import SessionLocal, engine
-from data.schemas.User import UserLogin,User
-from  data.schemas.User import User as UserSchema 
-from data.schemas.SalesItem import SalesItemBase, SalesItemCreate
-from  data.models import UserModel
+from .repositories import user_repository, auth_repository, sales_items_repository
+from .utils.database.database import SessionLocal, engine
+from .data.schemas.User import UserLogin,User
+from  .data.schemas.User import User as UserSchema 
+from .data.schemas.SalesItem import SalesItemBase, SalesItemCreate
+from  .data.models import UserModel
 from fastapi import Depends
-from services.sales_items_service import create_salse_item
-from services import auth_service  
+from .services.sales_items_service import create_salse_item
+from .services import auth_service  
 # load_dotenv(dotenv_path=join(dirname(__file__),"dev.env"))
 app = FastAPI()
 
@@ -37,12 +37,20 @@ app.add_middleware(
 )
 
 @app.post("/register", response_model=UserSchema )
-def login(user: UserLogin , db: Session= Depends(get_db)):
+def register(user: UserLogin , db: Session= Depends(get_db)):
     try:
         return auth_service.register(db, user)
     except Exception as e:
+        print(e)
         raise HTTPException(status_code=400, detail="Something went wrong")
     
+@app.post("/login")
+def login(user: UserLogin, db: Session = Depends(get_db)):
+    try:
+        return auth_service.login(db, user)
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=400, detail=str(e))
 
 @app.get("/users")
 def get_users(db: Session = Depends(get_db)):
