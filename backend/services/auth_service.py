@@ -3,10 +3,10 @@ import jwt
 import dotenv 
 import os
 from sqlalchemy.orm import Session
-from repositories.user_repository import get_user_by_email
-from repositories import auth_repository, user_repository
-from data.schemas.User import UserLogin, UserAuthenticated
-from utils.jwt_tokens import generate_jwt, validate_jwt_token
+from ..repositories.user_repository import get_user_by_email
+from ..repositories import auth_repository, user_repository
+from ..data.schemas.User import UserLogin, UserAuthenticated
+from ..utils.jwt_tokens import generate_jwt, validate_jwt_token
 dotenv.load_dotenv("dev.env")
 def register(db: Session, user: UserLogin):
     user_found = user_repository.get_user_by_email(db, email=user.email)
