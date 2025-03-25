@@ -1,7 +1,7 @@
-from repositories.user_repository import get_user_by_id
-from repositories import sales_items_repository 
+from ..repositories.user_repository import get_user_by_id
+from ..repositories import sales_items_repository 
 from sqlalchemy.orm import Session
-from data.schemas.SalesItem import SalesItemCreate, SalesItemBase
+from ..data.schemas.SalesItem import SalesItemCreate, SalesItemBase
 
 def create_salse_item(db: Session, owner_id: int, salesItem: SalesItemBase):
     user = get_user_by_id(db=db, id=owner_id)

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from data.schemas.User import UserLogin
-from data.models.UserModel import User
+from ..data.schemas.User import UserLogin
+from ..data.models.UserModel import User
 
 def get_user_by_email( db: Session, email:str) -> User:
    

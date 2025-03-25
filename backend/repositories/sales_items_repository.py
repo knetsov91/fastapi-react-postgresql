@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from data.schemas.SalesItem import SalesItemCreate
-from data.models.SalesItem import SalesItemModel
+from ..data.schemas.SalesItem import SalesItemCreate
+from ..data.models.SalesItem import SalesItemModel
 
 
 def create_sales_item(db: Session, sales_item: SalesItemCreate):
