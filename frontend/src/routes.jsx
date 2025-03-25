@@ -4,6 +4,7 @@ import Layout from './components/Pages/Layout';
 import Home from './components/Pages/Home';
 import Login from './components/Auth/Login';
 import ProtectedRoute from './components/ProtectedRoute';
+import Users from './components/Pages/Users';
 const Routes = ({children}) => {
 
     const router = createBrowserRouter([    
@@ -28,7 +29,14 @@ const Routes = ({children}) => {
         children: [
             {index: true, element: <ProtectedRoute><Home /></ProtectedRoute>}
         ]
-    } 
+    }, 
+    {
+        path: "/users",
+        element: <Layout />,
+        children: [
+            {index: true, element: <Users />}
+        ]
+     }
     ])
 
     return (
