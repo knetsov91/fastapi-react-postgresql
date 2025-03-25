@@ -1,11 +1,17 @@
-
+ 
 import './App.css';
-import NerComponent from './components/NerComponent';
+ 
+import Routes from "./routes";
+import Navbar from "./components/Pages/Navbar";
+import AuthProvider from "./context/authContext";
+ 
 function App() {
   return (
     <div className="App">
-        <p>Index</p>
-  
+ 
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
     </div>
   );
 }
