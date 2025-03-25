@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Body, Path, HTTPException
+from fastapi import FastAPI, Body, Path, HTTPException, Request
 from typing import Annotated
 from starlette.middleware.cors import CORSMiddleware
 import os
@@ -53,7 +53,12 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail=str(e))
 
 @app.get("/users")
-def get_users(db: Session = Depends(get_db)):
+def get_users( req: Request, db: Session = Depends(get_db)):
+    authorization_header = req.headers.get('authorization')
+
+    if not authorization_header:
+        return HTTPException(status_code=401, detail="Access denied")
+    print(authorization_header)
     return user_repository.get_users(db) 
 
 @app.post('/items/{owner_id}', response_model=SalesItemCreate)
