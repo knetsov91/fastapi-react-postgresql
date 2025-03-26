@@ -6,6 +6,9 @@ import Login from './components/Auth/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import Users from './components/Pages/Users';
 import Logout from './components/Auth/Logout';
+import SaleItems from './components/Pages/SaleItems';
+
+
 const Routes = ({children}) => {
 
     const router = createBrowserRouter([    
@@ -22,6 +25,10 @@ const Routes = ({children}) => {
                 path: "/login",
                 element: <Login />
             },
+            {
+                path: "/items",
+                element: <ProtectedRoute><SaleItems /></ProtectedRoute> 
+            },
             
     ]},
     {
@@ -31,6 +38,7 @@ const Routes = ({children}) => {
             {index: true, element: <ProtectedRoute><Home /></ProtectedRoute>}
         ]
     }, 
+    
     {
         path: "/users",
         element: <Layout />,
