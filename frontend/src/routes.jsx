@@ -5,6 +5,7 @@ import Home from './components/Pages/Home';
 import Login from './components/Auth/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import Users from './components/Pages/Users';
+import Logout from './components/Auth/Logout';
 const Routes = ({children}) => {
 
     const router = createBrowserRouter([    
@@ -36,6 +37,10 @@ const Routes = ({children}) => {
         children: [
             {index: true, element: <Users />}
         ]
+     },
+     {
+        path: "/logout",
+        element: <Logout />
      }
     ])
 
