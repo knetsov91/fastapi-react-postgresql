@@ -1,4 +1,4 @@
-![example workflow](https://github.com/knetsov91/python-NER-project/actions/workflows/python-app.yml/badge.svg?branch=dev)
+![example workflow](https://github.com/knetsov91/fastapi-react-postgresql/actions/workflows/python-app.yml/badge.svg?branch=main)
 
 
 <h1>Online seller</h1>
