@@ -1,26 +1,24 @@
 import { useEffect, useState } from "react";
 import { getItems } from "../../services/saleItemsService";
+import SaleItem from "./SaleItem";
 
 const SaleItems = () => {
     const [items, setItems] = useState([]);
     useEffect(() => {
         getItems()
-        .then(data => setItems(data.data))
+        .then(data =>{ 
+            setItems(data.data)
+            console.log(data.data);}
+            
+        )
         .catch(err => console.log(err));
     }, []);
 
 
     return (
-        <div>
-            {
-                items.map(item => (
-                    <div key={item.price}>
-                    <span>Desc: {item.description}</span><br></br>
-                    <span>Price:{item.price}</span>
-                </div>
-                )
-            )
-            }
+        <div className="saleItems">
+            <h2>Items</h2>
+            { items.map(item => <SaleItem price={item.price} description={item.description} /> ) }
            
         </div>
     );
