@@ -15,3 +15,6 @@ def create_salse_item(db: Session, owner_id: int, salesItem: SalesItemBase):
     )
     
     return sales_items_repository.create_sales_item(db, new_sales_item)
+
+def get_all_items(db: Session):
+    return sales_items_repository.get_items(db)

@@ -1,5 +1,5 @@
-from fastapi import FastAPI, Body, Path, HTTPException
-from typing import Annotated
+from fastapi import FastAPI, Body, Path, HTTPException, Request
+from typing import Annotated, List
 from starlette.middleware.cors import CORSMiddleware
 import os
 from os.path import join, dirname
@@ -13,7 +13,7 @@ from  .data.schemas.User import User as UserSchema
 from .data.schemas.SalesItem import SalesItemBase, SalesItemCreate
 from  .data.models import UserModel
 from fastapi import Depends
-from .services.sales_items_service import create_salse_item
+from .services.sales_items_service import create_salse_item, get_all_items
 from .services import auth_service  
 # load_dotenv(dotenv_path=join(dirname(__file__),"dev.env"))
 app = FastAPI()
@@ -53,10 +53,15 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail=str(e))
 
 @app.get("/users")
-def get_users(db: Session = Depends(get_db)):
+def get_users( req: Request, db: Session = Depends(get_db)):
+    authorization_header = req.headers.get('authorization')
+
+    if not authorization_header:
+        return HTTPException(status_code=401, detail="Access denied")
+    print(authorization_header)
     return user_repository.get_users(db) 
 
-@app.post('/items/{owner_id}', response_model=SalesItemCreate)
+@app.post("/items/{owner_id}", response_model=SalesItemCreate)
 def f(salesItem: SalesItemBase,
       owner_id: Annotated[int, Path()],
       db: Session = Depends(get_db)
@@ -64,3 +69,7 @@ def f(salesItem: SalesItemBase,
 
     sales_item = create_salse_item(db, owner_id, salesItem=salesItem)
     return sales_item
+
+@app.get("/items",response_model=List[SalesItemBase])
+def get_items(db: Session = Depends(get_db)):
+    return get_all_items(db)
