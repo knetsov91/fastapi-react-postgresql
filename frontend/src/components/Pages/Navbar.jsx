@@ -13,24 +13,24 @@ const Navbar = () => {
     }
         
     return (
-        <>
+        <div className="navbar">
         <ul>
-          <li>
+          
             {
               !authToken ? <>
-                <Link to="/register"> Register</Link>
-                <Link to="/login"> Login</Link>
+                <li><Link to="/register"> Register</Link></li>
+                <li><Link to="/login"> Login</Link></li>
               </> :
               <>
-                <Link to="/users"> Users</Link>
-                <Link to="/items"> Items</Link>
-                <Link to="/logout"> Logout</Link>              
+                <li><Link to="/users"> Users</Link></li>
+                <li><Link to="/items"> Items</Link></li>
+                <li><Link to="/logout"> Logout</Link></li>   
+                 {email &&<li> Hello <b>{email}</b></li>}           
               </>  
             }
-          </li>  
         </ul>
-        {email && <p>Hello {email }<b></b></p> }
-        </>
+       
+        </div>
     );
         
 }
