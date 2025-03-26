@@ -29,7 +29,10 @@ a {
 a:hover {
   background-color: aquamarine;
 }
-
+ul {
+  display: flex;
+  justify-content: space-between;
+}
 
 .App {
   background-color: chartreuse;
@@ -38,8 +41,9 @@ a:hover {
 .navbar {
   background-color: yellow;
   display: flex;
-  align-items: end;
-  justify-content:  space-around;
+  align-items: center;
+  justify-content: space-evenly;
+
 }
 
 .layout {
