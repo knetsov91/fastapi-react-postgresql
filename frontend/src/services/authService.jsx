@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BACKEND_URL = "http://localhost:8000"; 
+import {BACKEND_URL} from "../config";
 
 export const register = (email, password) => {
     axios.post(`${BACKEND_URL}/register`, {email, password})
