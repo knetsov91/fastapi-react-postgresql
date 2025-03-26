@@ -23,6 +23,7 @@ const Navbar = () => {
               </> :
               <>
                 <Link to="/users"> Users</Link>
+                <Link to="/items"> Items</Link>
                 <Link to="/logout"> Logout</Link>              
               </>  
             }
