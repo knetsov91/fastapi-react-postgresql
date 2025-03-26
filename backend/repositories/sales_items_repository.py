@@ -11,3 +11,9 @@ def create_sales_item(db: Session, sales_item: SalesItemCreate):
     db.refresh(new_sales_item)
     
     return new_sales_item
+
+def get_items(db: Session):
+    items = db.query(SalesItemModel).all()
+    db.commit()
+    
+    return items
